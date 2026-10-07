@@ -9,15 +9,10 @@ import NavBar from '../components/NavBar';
 function LayoutPage()  {
 
 
-  const items = [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#" },
-    { label: "Contact", href: "#" },
-  ];
 
 
   return (
-    <div className="relative min-h-screen  w-full ">
+    <div className="relative  h-screen w-full ">
       {/* Back ground light pillar */}
       <div className="fixed inset-0  z-0 overflow-hidden pointer-events-none">  
         <Aurora
@@ -33,7 +28,7 @@ function LayoutPage()  {
 
  
 
-      <main>
+      <main className="relative flex h-full w-full z-10 justify-center items-center">
         <Outlet />
       </main>
     </div>
