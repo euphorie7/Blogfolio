@@ -61,46 +61,58 @@ export default function Expertise({ language }: ExpertiseProps) {
     <section
       id="expertise"
       lang={language}
-      className="relative w-full min-h-[85svh] scroll-mt-28 px-6  text-white sm:px-10"
+      aria-labelledby="expertise-title"
+      className="relative w-full scroll-mt-24 px-6 py-20 text-white sm:px-10 lg:py-28"
     >
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{
-          maskImage: "linear-gradient(to bottom, transparent, black 160px)",
-        }}
-      ></div>
-      <div className="relative z-10 mx-auto w-full max-w-5xl">
+      <div className="mx-auto w-full max-w-5xl">
+        <header className="mb-10 text-center sm:mb-14">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-violet-300">
+            {language === "fr" ? "Mon expertise" : "My expertise"}
+          </p>
+
+          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            {language === "fr"
+              ? "Des applications solides, de bout en bout."
+              : "Solid applications, end to end."}
+          </h2>
+        </header>
+
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           {text.cards.map((card, index) => {
             const Icon = icons[index];
 
             return (
               <BorderGlow
-                edgeSensitivity={30}
+                key={index}
+                edgeSensitivity={50}
                 glowColor="40 80 80"
                 backgroundColor="#120F17"
-                borderRadius={28}
+                borderRadius={24}
                 glowRadius={40}
-                glowIntensity={1.0}
+                glowIntensity={0.7}
                 coneSpread={25}
                 animated={false}
                 colors={["#c084fc", "#f472b6", "#38bdf8"]}
               >
-                <div className="flex min-h-[280px] flex-col p-6 text-left">
+                <article className="flex h-full min-h-[320px] flex-col p-7 text-left">
                   <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/20 bg-violet-400/10 text-violet-300">
                     <Icon size={24} aria-hidden="true" />
                   </div>
 
-                  <h3 className="text-xl font-semibold">{card.title}</h3>
+                  <h3 className="text-xl font-semibold text-white">
+                    {card.title}
+                  </h3>
 
-                  <p className="mt-3 text-sm leading-relaxed text-white/60">
+                  <p className="mt-4 text-sm leading-relaxed text-white/60">
                     {card.description}
                   </p>
 
-                  <p className="mt-auto pt-6 text-xs leading-relaxed text-violet-300/80">
-                    {card.stack}
-                  </p>
-                </div>
+                  <div className="mt-auto pt-7">
+                    <p className="border-t border-white/10 pt-4 text-xs leading-relaxed text-violet-300/80">
+                      {card.stack}
+                    </p>
+                  </div>
+                </article>
               </BorderGlow>
             );
           })}

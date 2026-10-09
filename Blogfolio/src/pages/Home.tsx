@@ -1,10 +1,19 @@
 import { Link, useOutletContext } from "react-router-dom";
 import Expertise from "../components/Expertise";
 import Aurora from "../components/Aurora";
+import StackMarquee from "../components/StackMarquee";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Avatar, AvatarImage, AvatarFallback } from "../components/ui/avatar";
+import { Skeleton } from "../components/ui/skeleton";
 
 type OutletContext = {
   isAtTop: boolean;
   language: "fr" | "en";
+};
+
+type GitHubProfile = {
+  avatar_url: string;
 };
 
 const content = {
@@ -32,15 +41,32 @@ const content = {
   },
 };
 
+async function fetchProfilePicture(signal: AbortSignal): Promise<string> {
+  const { data } = await axios.get<GitHubProfile>(
+    "https://api.github.com/users/euphorie7",
+    { signal },
+  );
+
+  return data.avatar_url;
+}
+
 export default function Home() {
   const { isAtTop, language } = useOutletContext<OutletContext>();
   const text = content[language];
+
+  const { data: avatarUrl, isPending } = useQuery({
+    queryKey: ["github-avatar", "euphorie7"],
+    queryFn: ({ signal }) => fetchProfilePicture(signal),
+    staleTime: 60 * 60 * 1000, // Fraîches pendant 1 heure
+    gcTime: 24 * 60 * 60 * 1000, // Cache inactif conservé 24 heures
+  });
+  console.log(avatarUrl);
 
   return (
     <div className=" flex flex-col w-full">
       <section
         lang={language}
-        className="relative flex min-h-[90svh] w-full flex-col  justify-center items-center px-6 pb-16 pt-32 text-white sm:px-10"
+        className="relative flex min-h-[94svh] w-full flex-col  justify-center items-center px-6 pb-16 pt-32 text-white sm:px-10"
       >
         {/* Back ground light pillar */}
         <div className="absolute inset-0  -z-10 overflow-hidden pointer-events-none">
@@ -68,7 +94,29 @@ export default function Home() {
           </span>
         </a>
 
-        <div className="flex  max-w-5xl flex-col  justify-center  text-start">
+        <div className="hidden lg:block lg:absolute lg:top-[15%] lg:right-[15%] xl:top-[20%] xl:right-[20%]  rounded-full w-fit h-fit bg-black p-1.5">
+          {isPending ? (
+            <Skeleton
+              aria-label={
+                language === "fr" ? "Chargement de la photo" : "Loading photo"
+              }
+              className="h-28 w-28 rounded-full bg-violet-400/10 sm:h-32 sm:w-32 xl:h-52 xl:w-52"
+            />
+          ) : (
+            <Avatar className="h-28 w-28 sm:h-32 sm:w-32 xl:h-52 xl:w-52">
+              <AvatarImage
+                src={avatarUrl}
+                alt="Hamza Laouni"
+                className="object-cover transition-transform duration-500 hover:scale-110 motion-reduce:transform-none"
+              />
+              <AvatarFallback className="bg-[#120F17] text-3xl font-semibold text-violet-300">
+                HL
+              </AvatarFallback>
+            </Avatar>
+          )}
+        </div>
+
+        <div className="flex  max-w-5xl flex-col  justify-center  text-start ">
           <p className="mb-10 text-xs uppercase tracking-[0.12em] text-white/50 sm:text-sm sm:tracking-[0.2em]">
             {text.role}
           </p>
@@ -116,12 +164,14 @@ export default function Home() {
             </Link>
           </div>
         </div>
+
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-40 bg-gradient-to-b from-transparent to-[#08060d]"
         />
       </section>
 
+      <StackMarquee />
       <Expertise language={language} />
     </div>
   );

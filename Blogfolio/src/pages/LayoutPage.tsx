@@ -2,8 +2,11 @@ import { Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { useEffect, useState } from "react";
 import SquishSwitch from "../components/SquishSwitch";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function LayoutPage() {
+  const queryClient = new QueryClient();
+
   const [isAtTop, setIsAtTop] = useState(true);
   const [language, setLanguage] = useState<"fr" | "en">("fr");
 
@@ -45,10 +48,11 @@ function LayoutPage() {
       <NavBar
         className={`transition-all duration-300 ${isAtTop ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       />
-
-      <main className="relative flex  w-full z-10 justify-center items-center">
-        <Outlet context={{ isAtTop, language }} />
-      </main>
+      <QueryClientProvider client={queryClient}>
+        <main className="relative flex  w-full z-10 justify-center items-center">
+          <Outlet context={{ isAtTop, language }} />
+        </main>
+      </QueryClientProvider>
     </div>
   );
 }
