@@ -24,7 +24,7 @@ function LayoutPage() {
 
   return (
     <div className="relative   w-full  ">
-      <div className="fixed top-10 right-10  z-[60]">
+      <div className="fixed bottom-5 right-5 z-[60] md:bottom-auto md:top-10 md:right-10">
         <SquishSwitch
           id="language-switch"
           checked={language === "en"}

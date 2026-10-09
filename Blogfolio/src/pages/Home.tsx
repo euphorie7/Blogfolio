@@ -126,7 +126,7 @@ export default function Home() {
             <span className="font-medium text-white">Hamza Laouni.</span>
           </p>
 
-          <h1 className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="text-3xl font-semibold leading-tight text-whitetracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             {text.title}{" "}
             <span className="block bg-gradient-to-r from-violet-300 via-purple-300 to-sky-300 bg-clip-text pb-2 text-transparent">
               {text.highlight}
