@@ -63,7 +63,7 @@ export default function Home() {
   console.log(avatarUrl);
 
   return (
-    <div className=" flex flex-col w-full">
+    <div className=" flex w-full min-w-0 flex-col">
       <section
         lang={language}
         className="relative flex min-h-[94svh] w-full flex-col  justify-center items-center px-6 pb-16 pt-32 text-white sm:px-10"

@@ -49,7 +49,7 @@ function LayoutPage() {
         className={`transition-all duration-300 ${isAtTop ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       />
       <QueryClientProvider client={queryClient}>
-        <main className="relative flex  w-full z-10 justify-center items-center">
+        <main className="relative   w-full z-10">
           <Outlet context={{ isAtTop, language }} />
         </main>
       </QueryClientProvider>
