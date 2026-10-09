@@ -1,0 +1,111 @@
+import BorderGlow from "./BorderGlow";
+import { PanelsTopLeft, Server, Layers } from "lucide-react";
+
+type ExpertiseProps = {
+  language: "fr" | "en";
+};
+
+const content = {
+  fr: {
+    cards: [
+      {
+        title: "Interfaces soignées",
+        description:
+          "Des interfaces claires, responsives et intuitives, conçues pour simplifier le quotidien des utilisateurs.",
+        stack: "React • Next.js • TypeScript • Tailwind CSS",
+      },
+      {
+        title: "Backends robustes",
+        description:
+          "Des API sécurisées et une logique métier structurée pour des applications fiables et faciles à maintenir.",
+        stack: "Spring Boot • NestJS • PostgreSQL • Prisma",
+      },
+      {
+        title: "Architectures évolutives",
+        description:
+          "Des systèmes modulaires qui facilitent l’ajout de fonctionnalités, le déploiement et la montée en charge.",
+        stack: "Microservices • Docker • CI/CD • Kafka",
+      },
+    ],
+  },
+  en: {
+    cards: [
+      {
+        title: "Polished interfaces",
+        description:
+          "Clear, responsive, and intuitive interfaces designed to make everyday tasks easier for users.",
+        stack: "React • Next.js • TypeScript • Tailwind CSS",
+      },
+      {
+        title: "Robust backends",
+        description:
+          "Secure APIs and well-structured business logic for reliable applications that are easy to maintain.",
+        stack: "Spring Boot • NestJS • PostgreSQL • Prisma",
+      },
+      {
+        title: "Scalable architectures",
+        description:
+          "Modular systems that make it easier to add features, deploy changes, and handle growing workloads.",
+        stack: "Microservices • Docker • CI/CD • Kafka",
+      },
+    ],
+  },
+};
+
+const icons = [PanelsTopLeft, Server, Layers];
+
+export default function Expertise({ language }: ExpertiseProps) {
+  const text = content[language];
+
+  return (
+    <section
+      id="expertise"
+      lang={language}
+      className="relative w-full min-h-[85svh] scroll-mt-28 px-6  text-white sm:px-10"
+    >
+      <div
+        className="absolute inset-0 overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent, black 160px)",
+        }}
+      ></div>
+      <div className="relative z-10 mx-auto w-full max-w-5xl">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {text.cards.map((card, index) => {
+            const Icon = icons[index];
+
+            return (
+              <BorderGlow
+                edgeSensitivity={30}
+                glowColor="40 80 80"
+                backgroundColor="#120F17"
+                borderRadius={28}
+                glowRadius={40}
+                glowIntensity={1.0}
+                coneSpread={25}
+                animated={false}
+                colors={["#c084fc", "#f472b6", "#38bdf8"]}
+              >
+                <div className="flex min-h-[280px] flex-col p-6 text-left">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl border border-violet-400/20 bg-violet-400/10 text-violet-300">
+                    <Icon size={24} aria-hidden="true" />
+                  </div>
+
+                  <h3 className="text-xl font-semibold">{card.title}</h3>
+
+                  <p className="mt-3 text-sm leading-relaxed text-white/60">
+                    {card.description}
+                  </p>
+
+                  <p className="mt-auto pt-6 text-xs leading-relaxed text-violet-300/80">
+                    {card.stack}
+                  </p>
+                </div>
+              </BorderGlow>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

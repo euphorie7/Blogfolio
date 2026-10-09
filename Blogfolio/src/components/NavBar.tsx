@@ -2,9 +2,14 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Home, FolderGit2 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-function Navbar() {
+interface NavBarProps {
+  className?: string;
+}
+function Navbar({ className }: NavBarProps) {
   return (
-    <nav className="
+    <nav
+      className={`
+      ${className}
       fixed top-5 left-1/2 -translate-x-1/2
       z-50
       flex items-center gap-2
@@ -14,7 +19,9 @@ function Navbar() {
       px-3 py-2
       backdrop-blur-xl
       shadow-lg
-    ">
+      p-3
+    `}
+    >
       <NavLink
         to="/"
         className="flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
