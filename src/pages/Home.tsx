@@ -63,10 +63,10 @@ export default function Home() {
   console.log(avatarUrl);
 
   return (
-    <div className=" flex w-full min-w-0 flex-col">
+    <div className=" flex w-full min-h-screen  min-w-0 flex-col">
       <section
         lang={language}
-        className="relative flex min-h-[94svh] w-full flex-col  justify-center items-center px-6 pb-16 pt-32 text-white sm:px-10"
+        className="relative flex min-h-screen w-full flex-col select-none  justify-center items-center px-6 pb-16 pt-32 text-white sm:px-10"
       >
         {/* Back ground light pillar */}
         <div className="absolute inset-0  -z-10 overflow-hidden pointer-events-none">
@@ -94,84 +94,85 @@ export default function Home() {
           </span>
         </a>
 
-        <div className="hidden lg:block lg:absolute lg:top-[15%] lg:right-[15%] xl:top-[20%] xl:right-[20%]  rounded-full w-fit h-fit bg-black p-1.5">
-          {isPending ? (
-            <Skeleton
-              aria-label={
-                language === "fr" ? "Chargement de la photo" : "Loading photo"
-              }
-              className="h-28 w-28 rounded-full bg-violet-400/10 sm:h-32 sm:w-32 xl:h-52 xl:w-52"
-            />
-          ) : (
-            <Avatar className="h-28 w-28 sm:h-32 sm:w-32 xl:h-52 xl:w-52">
-              <AvatarImage
-                src={avatarUrl}
-                alt="Hamza Laouni"
-                className="object-cover transition-transform duration-500 hover:scale-110 motion-reduce:transform-none"
+        
+
+        <div className="grid grid-cols-7  max-w-9xl  justify-center  text-start ">
+          <div className=" col-span-5 flex flex-col w-full">
+
+                <p className="mb-10 text-xs uppercase tracking-[0.12em] text-white/50 sm:text-sm sm:tracking-[0.2em]">
+                  {text.role}
+                </p>
+
+                <p className="mb-5 text-base text-violet-300 sm:text-lg">
+                  {text.intro}{" "}
+                  <span className="font-medium text-white">Hamza Laouni.</span>
+                </p>
+
+                <h1 className="text-3xl font-semibold leading-tight text-whitetracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                  {text.title}{" "}
+                  <span className="block bg-gradient-to-r from-violet-300 via-purple-300 to-sky-300 bg-clip-text pb-2 text-transparent">
+                    {text.highlight}
+                  </span>
+                </h1>
+
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
+                  {text.description}
+                </p>
+
+                <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
+                  <Link
+                    to="/projects"
+                    className="group inline-flex items-center gap-2 rounded-full
+                    bg-white px-6 py-3 text-sm font-medium text-black
+                    transition duration-300 hover:bg-white/90
+                    hover:shadow-lg hover:shadow-violet-500/20"
+                  >
+                    {text.projects}
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
+                    >
+                      →
+                    </span>
+                  </Link>
+
+                  <Link
+                    to="/blog"
+                    className="rounded-full border border-white/20 px-6 py-3
+                    text-sm transition duration-300 hover:border-violet-400/50
+                    hover:bg-violet-400/10"
+                  >
+                    {text.blog}
+                  </Link>
+                </div>
+          </div>
+          <div className=" col-span-2  rounded-full w-fit h-fit bg-black p-1.5">
+            {isPending ? (
+              <Skeleton
+                aria-label={
+                  language === "fr" ? "Chargement de la photo" : "Loading photo"
+                }
+                className="w-[12vw] h-[12vw] max-w-52 max-h-52 rounded-full bg-violet-400/10"
               />
-              <AvatarFallback className="bg-[#120F17] text-3xl font-semibold text-violet-300">
-                HL
-              </AvatarFallback>
-            </Avatar>
-          )}
-        </div>
-
-        <div className="flex  max-w-5xl flex-col  justify-center  text-start ">
-          <p className="mb-10 text-xs uppercase tracking-[0.12em] text-white/50 sm:text-sm sm:tracking-[0.2em]">
-            {text.role}
-          </p>
-
-          <p className="mb-5 text-base text-violet-300 sm:text-lg">
-            {text.intro}{" "}
-            <span className="font-medium text-white">Hamza Laouni.</span>
-          </p>
-
-          <h1 className="text-3xl font-semibold leading-tight text-whitetracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-            {text.title}{" "}
-            <span className="block bg-gradient-to-r from-violet-300 via-purple-300 to-sky-300 bg-clip-text pb-2 text-transparent">
-              {text.highlight}
-            </span>
-          </h1>
-
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
-            {text.description}
-          </p>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-4 md:justify-start">
-            <Link
-              to="/projects"
-              className="group inline-flex items-center gap-2 rounded-full
-              bg-white px-6 py-3 text-sm font-medium text-black
-              transition duration-300 hover:bg-white/90
-              hover:shadow-lg hover:shadow-violet-500/20"
-            >
-              {text.projects}
-              <span
-                aria-hidden="true"
-                className="transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
-              >
-                →
-              </span>
-            </Link>
-
-            <Link
-              to="/blog"
-              className="rounded-full border border-white/20 px-6 py-3
-              text-sm transition duration-300 hover:border-violet-400/50
-              hover:bg-violet-400/10"
-            >
-              {text.blog}
-            </Link>
+            ) : (
+              <Avatar className="w-[12vw] h-[12vw] max-w-52 max-h-52">
+                <AvatarImage
+                  src={avatarUrl}
+                  alt="Hamza Laouni"
+                  className="object-cover transition-transform duration-500 hover:scale-110 motion-reduce:transform-none"
+                />
+                <AvatarFallback className="bg-[#120F17] text-3xl font-semibold text-violet-300">
+                  HL
+                </AvatarFallback>
+              </Avatar>
+            )}
           </div>
         </div>
 
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-40 bg-gradient-to-b from-transparent to-[#08060d]"
-        />
+      
       </section>
 
-      <StackMarquee />
+      <StackMarquee /> 
       <Expertise language={language} />
     </div>
   );

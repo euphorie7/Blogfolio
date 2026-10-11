@@ -62,7 +62,7 @@ export default function Expertise({ language }: ExpertiseProps) {
       id="expertise"
       lang={language}
       aria-labelledby="expertise-title"
-      className="relative  overflow-x-clip w-full scroll-mt-24 px-6 py-20 text-white sm:px-10 lg:py-28"
+      className="relative select-none  overflow-x-clip w-full scroll-mt-24 px-6 py-20 text-white sm:px-10 lg:py-28"
     >
       <div className="mx-auto w-full max-w-5xl">
         <header className="mb-10 text-center sm:mb-14">
